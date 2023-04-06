@@ -1,0 +1,4 @@
+outputs
+wandb
+*.egg-info
+*__pycache__*
