@@ -1,4 +1,5 @@
 import pathlib
+import time
 
 import torch
 import hydra
@@ -36,20 +37,34 @@ def main(cfg: OmegaConf):
     else:
         start_epoch = 0
 
-        # TODO: Initialization
+        # Initialization loop
+        if cfg.trainer.initialization.initialize:
+            trainer.train()
+            target = torch.tensor([cfg.trainer.initialization.init_condition])
+            init_start_time = time.time()
+            while True:
+                logs_info = trainer.step_initialization(target)
+                wandb.log(logs_info)
+
+                if logs_info["initialization_loss"] < 1e-6:
+                    print("Initialized successfully.")
+                    break
+                elif (
+                    time.time() - init_start_time > cfg.trainer.initialization.timeout_s
+                ):
+                    print("Initialization timeout reached!")
+                    break
 
         # Save initial condition
         trainer.save(epoch=0)
 
+    # Main training loop
     print("[Train] Start epoch: %d End epoch: %d" % (start_epoch, cfg.trainer.epochs))
     for epoch in tqdm(range(start_epoch, cfg.trainer.epochs)):
         trainer.epoch_start()
 
         logs_info = trainer.step()
-
-        # Log
-        if (epoch + 1) % int(cfg.logs.log_interval) == 0:
-            wandb.log(logs_info)
+        wandb.log(logs_info)
 
         # Save checkpoints
         if (epoch + 1) % int(cfg.logs.save_interval) == 0:

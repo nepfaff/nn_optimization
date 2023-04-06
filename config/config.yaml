@@ -12,7 +12,10 @@ trainer:
   resume: false
   resume_dir:
   epochs: 500
+  initialization:
+    initialize: true
+    init_condition: [0.96] # Local minimum of qubic_1d
+    timeout_s: 10.0
 
 logs:
-  log_interval: 1
   save_interval: 100

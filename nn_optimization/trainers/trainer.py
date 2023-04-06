@@ -50,6 +50,19 @@ class Trainer(nn.Module):
     def epoch_start(self):
         self.train()
 
+    def step_initialization(self, target):
+        """Optimize model weights to make output equal to `target`."""
+        self._optim.zero_grad()
+
+        pred = self._model()
+        loss = torch.mean((pred - target) ** 2)  # MSE
+        loss.backward()
+
+        self._optim.step()
+
+        log_info = {"initialization_loss": loss.item(), "init_prediction": pred}
+        return log_info
+
     def step(self):
         self._optim.zero_grad()
 
@@ -60,9 +73,7 @@ class Trainer(nn.Module):
 
         self._optim.step()
 
-        log_info = {
-            "loss": loss.item(),
-        }
+        log_info = {"loss": loss.item(), "prediction": pred}
         return log_info
 
     def save(self, epoch):
