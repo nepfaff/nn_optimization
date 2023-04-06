@@ -23,3 +23,13 @@ direct rather than indirect optimization:
 ```
 python scripts/train.py --config-name config model=parameter
 ```
+
+## Visualizing loss functions
+
+Example:
+```
+python scripts/viz_loss.py --function_name ackley --range 40 --one_dim
+```
+
+See `python scripts/viz_loss.py -h` for the available arguments.
+ 

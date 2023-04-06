@@ -62,7 +62,7 @@ class Trainer(nn.Module):
 
         log_info = {
             "initialization_loss": loss.item(),
-            "init_prediction": pred.data,
+            "init_prediction_mag": torch.norm(pred.data),
         }
         return log_info
 
@@ -76,7 +76,7 @@ class Trainer(nn.Module):
 
         self._optim.step()
 
-        log_info = {"loss": loss.item(), "prediction": pred.data}
+        log_info = {"loss": loss.item(), "prediction_mag": torch.norm(pred.data)}
         return log_info
 
     def save(self, epoch):
