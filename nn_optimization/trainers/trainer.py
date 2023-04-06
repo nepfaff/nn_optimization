@@ -60,7 +60,10 @@ class Trainer(nn.Module):
 
         self._optim.step()
 
-        log_info = {"initialization_loss": loss.item(), "init_prediction": pred}
+        log_info = {
+            "initialization_loss": loss.item(),
+            "init_prediction": pred.data,
+        }
         return log_info
 
     def step(self):
@@ -73,7 +76,7 @@ class Trainer(nn.Module):
 
         self._optim.step()
 
-        log_info = {"loss": loss.item(), "prediction": pred}
+        log_info = {"loss": loss.item(), "prediction": pred.data}
         return log_info
 
     def save(self, epoch):

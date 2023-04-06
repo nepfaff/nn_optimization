@@ -1,0 +1,2 @@
+_target_: nn_optimization.models.parameter.Parameter
+out_ch: 1
