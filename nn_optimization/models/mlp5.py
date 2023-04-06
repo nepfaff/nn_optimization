@@ -2,7 +2,7 @@ import torch
 import torch.nn as nn
 
 
-class MLP4(nn.Module):
+class MLP5(nn.Module):
     def __init__(
         self,
         use_dropout: bool,
@@ -19,7 +19,7 @@ class MLP4(nn.Module):
         hidden_ch = hidden_ch
 
         print(
-            "[MLP-4] Dropout: {}; Do_prob: {}; in_ch: {}; hidden_ch: {}".format(
+            "[MLP-5] Dropout: {}; Do_prob: {}; in_ch: {}; hidden_ch: {}".format(
                 self._dropout, dropout_prob, in_ch, hidden_ch
             )
         )

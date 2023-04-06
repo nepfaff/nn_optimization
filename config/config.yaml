@@ -1,5 +1,5 @@
 defaults:
-  - model: mlp4
+  - model: mlp5
   - lossfun: qubic_1d
 
 trainer:
