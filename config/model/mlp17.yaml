@@ -1,0 +1,4 @@
+_target_: nn_optimization.models.mlp17.MLP17
+in_ch: 128
+out_ch: 1
+hidden_ch: 512
