@@ -1,6 +1,6 @@
 defaults:
-  - model: mlp5
-  - lossfun: qubic_1d
+  - model: mlp9
+  - lossfun: ackley
 
 trainer:
   optim:
@@ -14,7 +14,7 @@ trainer:
   epochs: 500
   initialization:
     initialize: true
-    init_condition: [0.96] # Local minimum of qubic_1d
+    init_condition: [10.0]
     timeout_s: 10.0
 
 logs:

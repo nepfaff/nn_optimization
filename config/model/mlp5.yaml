@@ -1,6 +1,6 @@
 _target_: nn_optimization.models.mlp5.MLP5
 use_dropout: false
 dropout_prob:
-in_ch: 4
+in_ch: 128
 out_ch: 1
-hidden_ch: 16
+hidden_ch: 256
