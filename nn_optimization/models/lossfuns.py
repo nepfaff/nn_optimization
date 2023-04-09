@@ -19,7 +19,7 @@ def ackley(x: torch.Tensor) -> torch.Tensor:
         dimension.
 
     Returns:
-        torch.Tensor: The function value at the input coordinates.
+        torch.Tensor: The scalar function value at the input coordinates.
     """
     # Recommended params
     a = 20
@@ -34,3 +34,24 @@ def ackley(x: torch.Tensor) -> torch.Tensor:
         + torch.exp(torch.tensor([1.0]))
     )
     return loss
+
+
+def six_hump_camel(x: torch.Tensor) -> torch.Tensor:
+    """Six-hump cammel function. See https://www.sfu.ca/~ssurjano/camel6.html.
+    Global minima at (0.0898,-0.7126) and (-0.0898, 0.7126) with a value of -1.0316.
+
+    Args:
+        x (torch.Tensor): The input coordinates of shape (B, D) where D is the input
+        dimension.
+
+    Returns:
+        torch.Tensor: The scalar function value at the input coordinates.
+    """
+    return (
+        4 * x[..., 0] ** 2
+        - 2.1 * x[..., 0] ** 4
+        + (x[..., 0] ** 6) / 3
+        + x[..., 0] * x[..., 1]
+        - 4 * x[..., 1] ** 2
+        + 4 * x[..., 1] ** 4
+    )

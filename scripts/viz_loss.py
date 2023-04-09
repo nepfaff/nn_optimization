@@ -5,10 +5,14 @@ import argparse
 import torch
 import matplotlib.pyplot as plt
 
-from nn_optimization.models import qubic_1d, ackley
+from nn_optimization.models import qubic_1d, ackley, six_hump_camel
 
 # Mapping from name to (func, is multi-dimensional)
-loss_name_to_func_dict = {"qubic_1d": (qubic_1d, False), "ackley": (ackley, True)}
+loss_name_to_func_dict = {
+    "qubic_1d": (qubic_1d, False),
+    "ackley": (ackley, True),
+    "six_hump_camel": (six_hump_camel, True),
+}
 
 
 def main():

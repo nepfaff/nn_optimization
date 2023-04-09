@@ -103,3 +103,37 @@ model.in_ch=128 model.hidden_ch=1024
 
 We reach `x=0.96234` with a loss of `-0.70584`. No overparameterization seems to be
 sufficient to escape this local minimum.
+
+### Six-Hump Camel
+
+<img src="figures/six_hump_camel.png" alt=“six_hump_camel” width="500.0" height="500.0">
+
+There are local minima at `x=(0.0898,-0.7126)` and `x=(-0.0898, 0.7126)` with a loss of
+`-1.0316`.
+
+#### Direct optimization
+
+Optimizing the input coordinate directly leads to us getting stuck in a local minima.
+
+```
+python scripts/train.py --config-name config model=parameter \
+trainer.initialization.init_condition=[2.0,2.0] lossfun=six_hump_camel \
+model.out_ch=2 trainer.epochs=6000
+```
+
+We reach `x=(1.6,0.6)` with a loss of `2.108`.
+
+
+#### Indirect optimization
+
+Optimizing in an overparameterized decision variable space (neural network weights)
+allows us to reach the global minima.
+
+```
+python scripts/train.py --config-name config model=mlp9 \
+trainer.initialization.init_condition=[2.0,2.0] lossfun=six_hump_camel \
+model.out_ch=2 trainer.epochs=500
+```
+
+We reach `x=(0.0898,-0.7126)` with a loss of `-1.0316`. This corresponds to the one of
+the two global minima.
