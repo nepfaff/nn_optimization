@@ -76,7 +76,13 @@ class Trainer(nn.Module):
 
         self._optim.step()
 
-        log_info = {"loss": loss.item(), "prediction_mag": torch.norm(pred.data)}
+        log_info = {"loss": loss.item()}
+        if pred.data.shape[-1] > 1:
+            log_info["prediction_mag"] = torch.norm(pred.data)
+            for i, el in enumerate(pred.data[0]):
+                log_info[f"prediction_x{i}"] = el
+        else:
+            log_info["prediction"] = pred.data
         return log_info
 
     def save(self, epoch):
