@@ -41,13 +41,13 @@ def six_hump_camel(x: torch.Tensor) -> torch.Tensor:
     Global minima at (0.0898,-0.7126) and (-0.0898, 0.7126) with a value of -1.0316.
 
     Args:
-        x (torch.Tensor): The input coordinates of shape (B, D) where D is the input
+        x (torch.Tensor): The input coordinates of shape (B, 2) where 2 is the input
         dimension.
 
     Returns:
         torch.Tensor: The scalar function value at the input coordinates.
     """
-    return (
+    loss = (
         4 * x[..., 0] ** 2
         - 2.1 * x[..., 0] ** 4
         + (x[..., 0] ** 6) / 3
@@ -55,3 +55,23 @@ def six_hump_camel(x: torch.Tensor) -> torch.Tensor:
         - 4 * x[..., 1] ** 2
         + 4 * x[..., 1] ** 4
     )
+    return loss
+
+
+def griewank(x: torch.Tensor) -> torch.Tensor:
+    """Griewank function. See http://www.sfu.ca/~ssurjano/griewank.html.
+    Gloabl minimum is at origin, with a value of 0. Lots of local minima away from the
+    origin.
+
+    Args:
+        x (torch.Tensor): The input coordinates of shape (B, D) where D is the input
+        dimension.
+
+    Returns:
+        torch.Tensor: The scalar function value at the input coordinates.
+    """
+    prod = torch.ones(x.shape[:-1])
+    for i in range(x.shape[-1]):
+        prod *= torch.cos(x[..., i] / torch.sqrt(torch.tensor([i + 1])))
+    loss = torch.sum(x / 4000.0, dim=-1) - prod + 1
+    return loss

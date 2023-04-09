@@ -15,7 +15,7 @@ trainer:
   initialization:
     initialize: true
     init_condition: [10.0]
-    timeout_s: 10.0
+    timeout_s: 100.0
 
 logs:
   save_interval: 100

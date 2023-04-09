@@ -1,1 +1,1 @@
-from .lossfuns import qubic_1d, ackley, six_hump_camel
+from .lossfuns import qubic_1d, ackley, six_hump_camel, griewank

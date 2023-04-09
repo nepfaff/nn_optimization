@@ -5,13 +5,14 @@ import argparse
 import torch
 import matplotlib.pyplot as plt
 
-from nn_optimization.models import qubic_1d, ackley, six_hump_camel
+from nn_optimization.models import qubic_1d, ackley, six_hump_camel, griewank
 
 # Mapping from name to (func, is multi-dimensional)
 loss_name_to_func_dict = {
     "qubic_1d": (qubic_1d, False),
     "ackley": (ackley, True),
     "six_hump_camel": (six_hump_camel, True),
+    "griewank": (griewank, True),
 }
 
 
@@ -56,7 +57,7 @@ def main():
             torch.linspace(-lim, lim, num_samples),
             torch.linspace(-lim, lim, num_samples),
         )
-        Z = loss_func(torch.stack([X, Y], dim=-1))
+        Z = loss_func(torch.stack([X, Y], dim=-1).unsqueeze(0))[0]
 
         fig = plt.figure(figsize=(10, 10))
         ax = plt.axes(projection="3d")
@@ -65,7 +66,7 @@ def main():
         plt.show()
     else:
         x = torch.linspace(-lim, lim, num_samples).unsqueeze(-1)
-        loss = loss_func(x)
+        loss = loss_func(x.unsqueeze(0))[0]
         fig = plt.figure(figsize=(10, 10))
         plot = plt.plot(x, loss)
         plt.title(function_name)
