@@ -40,7 +40,9 @@ def main(cfg: OmegaConf):
         # Initialization loop
         if cfg.trainer.initialization.initialize:
             trainer.train()
-            target = torch.tensor([cfg.trainer.initialization.init_condition])
+            target = torch.tensor(
+                [cfg.trainer.initialization.init_condition], device=device
+            )
             init_start_time = time.time()
             while True:
                 logs_info = trainer.step_initialization(target)
