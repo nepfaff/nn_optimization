@@ -1,6 +1,4 @@
 _target_: nn_optimization.models.mlp9.MLP9
-use_dropout: false
-dropout_prob:
 in_ch: 128
 out_ch: 1
 hidden_ch: 512
