@@ -31,7 +31,7 @@ def ackley(x: torch.Tensor) -> torch.Tensor:
         -a * torch.exp(-b * torch.sqrt(1 / dim * torch.sum(x**2, dim=-1)))
         - torch.exp(1 / dim * torch.sum(torch.cos(c * x), dim=-1))
         + a
-        + torch.exp(torch.tensor([1.0]))
+        + torch.exp(torch.tensor([1.0], device=x.device))
     )
     return loss
 
